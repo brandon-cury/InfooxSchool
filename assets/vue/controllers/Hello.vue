@@ -10,9 +10,10 @@ import {onMounted, ref} from "vue";
     });
     const prenom = ref("Brandon");
     onMounted(()=>{
-          alert('bebeb');
-          console.log('dddddddddddd')
-        }
-
-    )
+        })
 </script>
+<style scoped>
+div{
+  color:red
+}
+</style>
