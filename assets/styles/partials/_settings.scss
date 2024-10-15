@@ -1,32 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap");
-.linkStyle1 {
-  line-height: 40px;
-  text-decoration: underline white;
-  text-decoration-thickness: 3px;
-  text-underline-offset: 8px;
-  font-family: "Roboto Condensed", sans-serif;
-  transition: color ease-in 250ms;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: black;
-}
-.linkStyle1:hover {
-  color: yellow;
-}
-
 /* Setting Scale 1.125 */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 230px;
   font-size: 1rem;
   background: white;
-  color: #0a0b0b;
+  color: $color-black;
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal;
+
 }
 
 h1,
@@ -37,7 +20,6 @@ h5,
 h6 {
   font-family: "Cormorant Garamond", serif;
 }
-
 h1::first-letter,
 h2::first-letter,
 h3::first-letter,
@@ -46,44 +28,38 @@ h5::first-letter,
 h6::first-letter {
   text-transform: uppercase;
 }
-
 h3,
 h4,
 h5,
 h6 {
   font-weight: 600;
 }
-
 h1 {
   font-size: calc(2.027rem + 1.5vw);
 }
-
 h2 {
   font-size: calc(1.802rem + 1.5vw);
   font-weight: 700;
+
   text-transform: capitalize;
   color: white;
   padding-left: 12px;
 }
-
 h3 {
   font-size: calc(1.602rem + 1.5vw);
 }
-
 h4 {
   font-size: calc(1.424rem + 1.5vw);
 }
-
 h5 {
   font-size: calc(1.266rem + 1.5vw);
 }
-
 h6 {
   font-size: calc(1.125rem + 1.5vw);
 }
-
 /* endSetting */
 /* Navbar */
+
 /* phone */
 @media screen and (max-width: 576px) {
   html {
@@ -92,5 +68,3 @@ h6 {
   }
 }
 /* endphone */
-
-/*# sourceMappingURL=app.css.map */
