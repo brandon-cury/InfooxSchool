@@ -54,6 +54,9 @@ class User
     #[ORM\OneToOne(targetEntity: self::class, mappedBy: 'user_affilliated', cascade: ['persist', 'remove'])]
     private ?self $UserAffilliated = null;
 
+    #[ORM\OneToOne(mappedBy: 'editor', cascade: ['persist', 'remove'])]
+    private ?Bord $bordEditor = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -221,6 +224,23 @@ class User
         }
 
         $this->UserAffilliated = $UserAffilliated;
+
+        return $this;
+    }
+
+    public function getBordEditor(): ?Bord
+    {
+        return $this->bordEditor;
+    }
+
+    public function setBordEditor(Bord $bordEditor): static
+    {
+        // set the owning side of the relation if necessary
+        if ($bordEditor->getEditor() !== $this) {
+            $bordEditor->setEditor($this);
+        }
+
+        $this->bordEditor = $bordEditor;
 
         return $this;
     }
