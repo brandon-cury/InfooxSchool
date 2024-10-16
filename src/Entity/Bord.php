@@ -14,7 +14,7 @@ class Bord
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(inversedBy: 'bordEditor', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'myBooksPublished')]
     #[ORM\JoinColumn(nullable: false)]
     private ?user $editor = null;
 
@@ -26,9 +26,6 @@ class Bord
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $keyword = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $collection = null;
 
     #[ORM\Column]
     private ?bool $is_online_access = null;
@@ -48,7 +45,7 @@ class Bord
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $path = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::BIGINT)]
@@ -63,6 +60,9 @@ class Bord
     #[ORM\Column]
     private ?bool $is_onligne = null;
 
+    #[ORM\ManyToOne(inversedBy: 'bords')]
+    private ?collectionBord $collection = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -73,7 +73,7 @@ class Bord
         return $this->editor;
     }
 
-    public function setEditor(user $editor): static
+    public function setEditor(?user $editor): static
     {
         $this->editor = $editor;
 
@@ -112,18 +112,6 @@ class Bord
     public function setKeyword(?string $keyword): static
     {
         $this->keyword = $keyword;
-
-        return $this;
-    }
-
-    public function getCollection(): ?string
-    {
-        return $this->collection;
-    }
-
-    public function setCollection(?string $collection): static
-    {
-        $this->collection = $collection;
 
         return $this;
     }
@@ -256,6 +244,18 @@ class Bord
     public function setOnligne(bool $is_onligne): static
     {
         $this->is_onligne = $is_onligne;
+
+        return $this;
+    }
+
+    public function getCollection(): ?collectionBord
+    {
+        return $this->collection;
+    }
+
+    public function setCollection(?collectionBord $collection): static
+    {
+        $this->collection = $collection;
 
         return $this;
     }

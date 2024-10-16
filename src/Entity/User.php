@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,6 +15,10 @@ class User
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?role $role = null;
 
     #[ORM\Column(length: 255)]
     private ?string $first_name = null;
@@ -32,11 +38,14 @@ class User
     #[ORM\Column(type: Types::BIGINT, nullable: true)]
     private ?string $tel = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $code_tel = null;
+    #[ORM\Column(type: Types::BIGINT, nullable: true)]
+    private ?string $code_tel = null;
+
+    #[ORM\ManyToOne]
+    private ?user $user_affiliate = null;
 
     #[ORM\Column]
-    private ?int $numb_affiliating = null;
+    private ?int $number_affiliated = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
@@ -47,19 +56,39 @@ class User
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
-    #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?role $role = null;
+    /**
+     * @var Collection<int, Bord>
+     */
+    #[ORM\OneToMany(targetEntity: Bord::class, mappedBy: 'editor')]
+    private Collection $myBooksPublished;
 
-    #[ORM\OneToOne(targetEntity: self::class, mappedBy: 'user_affilliated', cascade: ['persist', 'remove'])]
-    private ?self $UserAffilliated = null;
+    /**
+     * @var Collection<int, CollectionBord>
+     */
+    #[ORM\OneToMany(targetEntity: CollectionBord::class, mappedBy: 'editor')]
+    private Collection $collectionBords;
 
-    #[ORM\OneToOne(mappedBy: 'editor', cascade: ['persist', 'remove'])]
-    private ?Bord $bordEditor = null;
+    public function __construct()
+    {
+        $this->myBooksPublished = new ArrayCollection();
+        $this->collectionBords = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getRole(): ?role
+    {
+        return $this->role;
+    }
+
+    public function setRole(?role $role): static
+    {
+        $this->role = $role;
+
+        return $this;
     }
 
     public function getFirstName(): ?string
@@ -134,26 +163,38 @@ class User
         return $this;
     }
 
-    public function getCodeTel(): ?int
+    public function getCodeTel(): ?string
     {
         return $this->code_tel;
     }
 
-    public function setCodeTel(?int $code_tel): static
+    public function setCodeTel(?string $code_tel): static
     {
         $this->code_tel = $code_tel;
 
         return $this;
     }
 
-    public function getNumbAffiliating(): ?int
+    public function getUserAffiliate(): ?user
     {
-        return $this->numb_affiliating;
+        return $this->user_affiliate;
     }
 
-    public function setNumbAffiliating(int $numb_affiliating): static
+    public function setUserAffiliate(?user $user_affiliate): static
     {
-        $this->numb_affiliating = $numb_affiliating;
+        $this->user_affiliate = $user_affiliate;
+
+        return $this;
+    }
+
+    public function getNumberAffiliated(): ?int
+    {
+        return $this->number_affiliated;
+    }
+
+    public function setNumberAffiliated(int $number_affiliated): static
+    {
+        $this->number_affiliated = $number_affiliated;
 
         return $this;
     }
@@ -194,53 +235,62 @@ class User
         return $this;
     }
 
-    public function getRole(): ?role
+    /**
+     * @return Collection<int, Bord>
+     */
+    public function getMyBooksPublished(): Collection
     {
-        return $this->role;
+        return $this->myBooksPublished;
     }
 
-    public function setRole(role $role): static
+    public function addMyBooksPublished(Bord $myBooksPublished): static
     {
-        $this->role = $role;
+        if (!$this->myBooksPublished->contains($myBooksPublished)) {
+            $this->myBooksPublished->add($myBooksPublished);
+            $myBooksPublished->setEditor($this);
+        }
 
         return $this;
     }
 
-    public function getUserAffilliated(): ?self
+    public function removeMyBooksPublished(Bord $myBooksPublished): static
     {
-        return $this->UserAffilliated;
-    }
-
-    public function setUserAffilliated(?self $UserAffilliated): static
-    {
-        // unset the owning side of the relation if necessary
-        if (null === $UserAffilliated && null !== $this->UserAffilliated) {
-            $this->UserAffilliated->setUserAffilliated(null);
+        if ($this->myBooksPublished->removeElement($myBooksPublished)) {
+            // set the owning side to null (unless already changed)
+            if ($myBooksPublished->getEditor() === $this) {
+                $myBooksPublished->setEditor(null);
+            }
         }
-
-        // set the owning side of the relation if necessary
-        if (null !== $UserAffilliated && $UserAffilliated->getUserAffilliated() !== $this) {
-            $UserAffilliated->setUserAffilliated($this);
-        }
-
-        $this->UserAffilliated = $UserAffilliated;
 
         return $this;
     }
 
-    public function getBordEditor(): ?Bord
+    /**
+     * @return Collection<int, CollectionBord>
+     */
+    public function getCollectionBords(): Collection
     {
-        return $this->bordEditor;
+        return $this->collectionBords;
     }
 
-    public function setBordEditor(Bord $bordEditor): static
+    public function addCollectionBord(CollectionBord $collectionBord): static
     {
-        // set the owning side of the relation if necessary
-        if ($bordEditor->getEditor() !== $this) {
-            $bordEditor->setEditor($this);
+        if (!$this->collectionBords->contains($collectionBord)) {
+            $this->collectionBords->add($collectionBord);
+            $collectionBord->setEditor($this);
         }
 
-        $this->bordEditor = $bordEditor;
+        return $this;
+    }
+
+    public function removeCollectionBord(CollectionBord $collectionBord): static
+    {
+        if ($this->collectionBords->removeElement($collectionBord)) {
+            // set the owning side to null (unless already changed)
+            if ($collectionBord->getEditor() === $this) {
+                $collectionBord->setEditor(null);
+            }
+        }
 
         return $this;
     }
