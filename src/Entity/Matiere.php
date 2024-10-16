@@ -31,9 +31,16 @@ class Matiere
     #[ORM\Column]
     private ?int $sort = null;
 
+    /**
+     * @var Collection<int, Bord>
+     */
+    #[ORM\ManyToMany(targetEntity: Bord::class, mappedBy: 'matiere')]
+    private Collection $bords;
+
     public function __construct()
     {
         $this->classe = new ArrayCollection();
+        $this->bords = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -97,6 +104,33 @@ class Matiere
     public function setSort(int $sort): static
     {
         $this->sort = $sort;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Bord>
+     */
+    public function getBords(): Collection
+    {
+        return $this->bords;
+    }
+
+    public function addBord(Bord $bord): static
+    {
+        if (!$this->bords->contains($bord)) {
+            $this->bords->add($bord);
+            $bord->addMatiere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBord(Bord $bord): static
+    {
+        if ($this->bords->removeElement($bord)) {
+            $bord->removeMatiere($this);
+        }
 
         return $this;
     }

@@ -27,9 +27,16 @@ class Section
     #[ORM\ManyToMany(targetEntity: Filiere::class, mappedBy: 'section')]
     private Collection $filieres;
 
+    /**
+     * @var Collection<int, Bord>
+     */
+    #[ORM\ManyToMany(targetEntity: Bord::class, mappedBy: 'section')]
+    private Collection $bords;
+
     public function __construct()
     {
         $this->filieres = new ArrayCollection();
+        $this->bords = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -83,6 +90,33 @@ class Section
     {
         if ($this->filieres->removeElement($filiere)) {
             $filiere->removeSection($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Bord>
+     */
+    public function getBords(): Collection
+    {
+        return $this->bords;
+    }
+
+    public function addBord(Bord $bord): static
+    {
+        if (!$this->bords->contains($bord)) {
+            $this->bords->add($bord);
+            $bord->addSection($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBord(Bord $bord): static
+    {
+        if ($this->bords->removeElement($bord)) {
+            $bord->removeSection($this);
         }
 
         return $this;

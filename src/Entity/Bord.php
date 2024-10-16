@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BordRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -62,6 +64,38 @@ class Bord
 
     #[ORM\ManyToOne(inversedBy: 'bords')]
     private ?collectionBord $collection = null;
+
+    /**
+     * @var Collection<int, section>
+     */
+    #[ORM\ManyToMany(targetEntity: section::class, inversedBy: 'bords')]
+    private Collection $section;
+
+    /**
+     * @var Collection<int, filiere>
+     */
+    #[ORM\ManyToMany(targetEntity: filiere::class, inversedBy: 'bords')]
+    private Collection $filiere;
+
+    /**
+     * @var Collection<int, classe>
+     */
+    #[ORM\ManyToMany(targetEntity: classe::class, inversedBy: 'bords')]
+    private Collection $classe;
+
+    /**
+     * @var Collection<int, matiere>
+     */
+    #[ORM\ManyToMany(targetEntity: matiere::class, inversedBy: 'bords')]
+    private Collection $matiere;
+
+    public function __construct()
+    {
+        $this->section = new ArrayCollection();
+        $this->filiere = new ArrayCollection();
+        $this->classe = new ArrayCollection();
+        $this->matiere = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -256,6 +290,102 @@ class Bord
     public function setCollection(?collectionBord $collection): static
     {
         $this->collection = $collection;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, section>
+     */
+    public function getSection(): Collection
+    {
+        return $this->section;
+    }
+
+    public function addSection(section $section): static
+    {
+        if (!$this->section->contains($section)) {
+            $this->section->add($section);
+        }
+
+        return $this;
+    }
+
+    public function removeSection(section $section): static
+    {
+        $this->section->removeElement($section);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, filiere>
+     */
+    public function getFiliere(): Collection
+    {
+        return $this->filiere;
+    }
+
+    public function addFiliere(filiere $filiere): static
+    {
+        if (!$this->filiere->contains($filiere)) {
+            $this->filiere->add($filiere);
+        }
+
+        return $this;
+    }
+
+    public function removeFiliere(filiere $filiere): static
+    {
+        $this->filiere->removeElement($filiere);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, classe>
+     */
+    public function getClasse(): Collection
+    {
+        return $this->classe;
+    }
+
+    public function addClasse(classe $classe): static
+    {
+        if (!$this->classe->contains($classe)) {
+            $this->classe->add($classe);
+        }
+
+        return $this;
+    }
+
+    public function removeClasse(classe $classe): static
+    {
+        $this->classe->removeElement($classe);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, matiere>
+     */
+    public function getMatiere(): Collection
+    {
+        return $this->matiere;
+    }
+
+    public function addMatiere(matiere $matiere): static
+    {
+        if (!$this->matiere->contains($matiere)) {
+            $this->matiere->add($matiere);
+        }
+
+        return $this;
+    }
+
+    public function removeMatiere(matiere $matiere): static
+    {
+        $this->matiere->removeElement($matiere);
 
         return $this;
     }
