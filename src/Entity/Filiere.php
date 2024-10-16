@@ -16,12 +16,14 @@ class Filiere
     #[ORM\Column]
     private ?int $id = null;
 
+    /**
+     * @var Collection<int, section>
+     */
+    #[ORM\ManyToMany(targetEntity: section::class, inversedBy: 'filieres')]
+    private Collection $section;
+
     #[ORM\Column(length: 255)]
     private ?string $name = null;
-
-    #[ORM\ManyToOne(inversedBy: 'filieres')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?section $section = null;
 
     #[ORM\Column]
     private ?int $sort = null;
@@ -40,12 +42,37 @@ class Filiere
 
     public function __construct()
     {
+        $this->section = new ArrayCollection();
         $this->classes = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return Collection<int, section>
+     */
+    public function getSection(): Collection
+    {
+        return $this->section;
+    }
+
+    public function addSection(section $section): static
+    {
+        if (!$this->section->contains($section)) {
+            $this->section->add($section);
+        }
+
+        return $this;
+    }
+
+    public function removeSection(section $section): static
+    {
+        $this->section->removeElement($section);
+
+        return $this;
     }
 
     public function getName(): ?string
@@ -56,18 +83,6 @@ class Filiere
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getSection(): ?section
-    {
-        return $this->section;
-    }
-
-    public function setSection(?section $section): static
-    {
-        $this->section = $section;
 
         return $this;
     }
@@ -84,14 +99,14 @@ class Filiere
         return $this;
     }
 
-    public function getAllUsers(): ?string
+    public function getAllUser(): ?string
     {
-        return $this->all_users;
+        return $this->all_user;
     }
 
-    public function setAllUsers(string $all_users): static
+    public function setAllUser(string $all_user): static
     {
-        $this->all_users = $all_users;
+        $this->all_user = $all_user;
 
         return $this;
     }

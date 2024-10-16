@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20241016205826 extends AbstractMigration
+final class Version20241016215240 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -24,7 +24,8 @@ final class Version20241016205826 extends AbstractMigration
         $this->addSql('CREATE TABLE classe (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, all_user BIGINT NOT NULL, sort INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE classe_filiere (classe_id INT NOT NULL, filiere_id INT NOT NULL, INDEX IDX_55493DFF8F5EA509 (classe_id), INDEX IDX_55493DFF180AA129 (filiere_id), PRIMARY KEY(classe_id, filiere_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE collection_bord (id INT AUTO_INCREMENT NOT NULL, editor_id INT NOT NULL, name VARCHAR(255) NOT NULL, INDEX IDX_EE41FE526995AC4C (editor_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE filiere (id INT AUTO_INCREMENT NOT NULL, section_id INT NOT NULL, name VARCHAR(255) NOT NULL, sort INT NOT NULL, all_user BIGINT NOT NULL, image VARCHAR(255) DEFAULT NULL, INDEX IDX_2ED05D9ED823E37A (section_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE filiere (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, sort INT NOT NULL, all_user BIGINT NOT NULL, image VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE filiere_section (filiere_id INT NOT NULL, section_id INT NOT NULL, INDEX IDX_4DFC386C180AA129 (filiere_id), INDEX IDX_4DFC386CD823E37A (section_id), PRIMARY KEY(filiere_id, section_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE matiere (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, all_user BIGINT NOT NULL, sort INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE matiere_classe (matiere_id INT NOT NULL, classe_id INT NOT NULL, INDEX IDX_AF649A8BF46CD258 (matiere_id), INDEX IDX_AF649A8B8F5EA509 (classe_id), PRIMARY KEY(matiere_id, classe_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE role (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -36,7 +37,8 @@ final class Version20241016205826 extends AbstractMigration
         $this->addSql('ALTER TABLE classe_filiere ADD CONSTRAINT FK_55493DFF8F5EA509 FOREIGN KEY (classe_id) REFERENCES classe (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE classe_filiere ADD CONSTRAINT FK_55493DFF180AA129 FOREIGN KEY (filiere_id) REFERENCES filiere (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE collection_bord ADD CONSTRAINT FK_EE41FE526995AC4C FOREIGN KEY (editor_id) REFERENCES user (id)');
-        $this->addSql('ALTER TABLE filiere ADD CONSTRAINT FK_2ED05D9ED823E37A FOREIGN KEY (section_id) REFERENCES section (id)');
+        $this->addSql('ALTER TABLE filiere_section ADD CONSTRAINT FK_4DFC386C180AA129 FOREIGN KEY (filiere_id) REFERENCES filiere (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE filiere_section ADD CONSTRAINT FK_4DFC386CD823E37A FOREIGN KEY (section_id) REFERENCES section (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE matiere_classe ADD CONSTRAINT FK_AF649A8BF46CD258 FOREIGN KEY (matiere_id) REFERENCES matiere (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE matiere_classe ADD CONSTRAINT FK_AF649A8B8F5EA509 FOREIGN KEY (classe_id) REFERENCES classe (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE user ADD CONSTRAINT FK_8D93D649D60322AC FOREIGN KEY (role_id) REFERENCES role (id)');
@@ -51,7 +53,8 @@ final class Version20241016205826 extends AbstractMigration
         $this->addSql('ALTER TABLE classe_filiere DROP FOREIGN KEY FK_55493DFF8F5EA509');
         $this->addSql('ALTER TABLE classe_filiere DROP FOREIGN KEY FK_55493DFF180AA129');
         $this->addSql('ALTER TABLE collection_bord DROP FOREIGN KEY FK_EE41FE526995AC4C');
-        $this->addSql('ALTER TABLE filiere DROP FOREIGN KEY FK_2ED05D9ED823E37A');
+        $this->addSql('ALTER TABLE filiere_section DROP FOREIGN KEY FK_4DFC386C180AA129');
+        $this->addSql('ALTER TABLE filiere_section DROP FOREIGN KEY FK_4DFC386CD823E37A');
         $this->addSql('ALTER TABLE matiere_classe DROP FOREIGN KEY FK_AF649A8BF46CD258');
         $this->addSql('ALTER TABLE matiere_classe DROP FOREIGN KEY FK_AF649A8B8F5EA509');
         $this->addSql('ALTER TABLE user DROP FOREIGN KEY FK_8D93D649D60322AC');
@@ -61,6 +64,7 @@ final class Version20241016205826 extends AbstractMigration
         $this->addSql('DROP TABLE classe_filiere');
         $this->addSql('DROP TABLE collection_bord');
         $this->addSql('DROP TABLE filiere');
+        $this->addSql('DROP TABLE filiere_section');
         $this->addSql('DROP TABLE matiere');
         $this->addSql('DROP TABLE matiere_classe');
         $this->addSql('DROP TABLE role');

@@ -16,14 +16,14 @@ class Matiere
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
-
     /**
      * @var Collection<int, classe>
      */
     #[ORM\ManyToMany(targetEntity: classe::class, inversedBy: 'matieres')]
     private Collection $classe;
+
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
 
     #[ORM\Column(type: Types::BIGINT)]
     private ?string $all_user = null;
@@ -39,18 +39,6 @@ class Matiere
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): static
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -73,6 +61,18 @@ class Matiere
     public function removeClasse(classe $classe): static
     {
         $this->classe->removeElement($classe);
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }

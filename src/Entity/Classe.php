@@ -16,14 +16,14 @@ class Classe
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
-
     /**
      * @var Collection<int, filiere>
      */
     #[ORM\ManyToMany(targetEntity: filiere::class, inversedBy: 'classes')]
     private Collection $filiere;
+
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
 
     #[ORM\Column(type: Types::BIGINT)]
     private ?string $all_user = null;
@@ -46,18 +46,6 @@ class Classe
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): static
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -84,14 +72,26 @@ class Classe
         return $this;
     }
 
-    public function getAllUsers(): ?string
+    public function getName(): ?string
     {
-        return $this->all_users;
+        return $this->name;
     }
 
-    public function setAllUsers(string $all_users): static
+    public function setName(string $name): static
     {
-        $this->all_users = $all_users;
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getAllUser(): ?string
+    {
+        return $this->all_user;
+    }
+
+    public function setAllUser(string $all_user): static
+    {
+        $this->all_user = $all_user;
 
         return $this;
     }

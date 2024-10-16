@@ -24,7 +24,7 @@ class Section
     /**
      * @var Collection<int, Filiere>
      */
-    #[ORM\OneToMany(targetEntity: Filiere::class, mappedBy: 'section')]
+    #[ORM\ManyToMany(targetEntity: Filiere::class, mappedBy: 'section')]
     private Collection $filieres;
 
     public function __construct()
@@ -73,7 +73,7 @@ class Section
     {
         if (!$this->filieres->contains($filiere)) {
             $this->filieres->add($filiere);
-            $filiere->setSection($this);
+            $filiere->addSection($this);
         }
 
         return $this;
@@ -82,10 +82,7 @@ class Section
     public function removeFiliere(Filiere $filiere): static
     {
         if ($this->filieres->removeElement($filiere)) {
-            // set the owning side to null (unless already changed)
-            if ($filiere->getSection() === $this) {
-                $filiere->setSection(null);
-            }
+            $filiere->removeSection($this);
         }
 
         return $this;
