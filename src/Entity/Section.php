@@ -33,10 +33,17 @@ class Section
     #[ORM\ManyToMany(targetEntity: Bord::class, mappedBy: 'section')]
     private Collection $bords;
 
+    /**
+     * @var Collection<int, Epreuve>
+     */
+    #[ORM\ManyToMany(targetEntity: Epreuve::class, mappedBy: 'section')]
+    private Collection $epreuves;
+
     public function __construct()
     {
         $this->filieres = new ArrayCollection();
         $this->bords = new ArrayCollection();
+        $this->epreuves = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -117,6 +124,33 @@ class Section
     {
         if ($this->bords->removeElement($bord)) {
             $bord->removeSection($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Epreuve>
+     */
+    public function getEpreuves(): Collection
+    {
+        return $this->epreuves;
+    }
+
+    public function addEpreufe(Epreuve $epreufe): static
+    {
+        if (!$this->epreuves->contains($epreufe)) {
+            $this->epreuves->add($epreufe);
+            $epreufe->addSection($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEpreufe(Epreuve $epreufe): static
+    {
+        if ($this->epreuves->removeElement($epreufe)) {
+            $epreufe->removeSection($this);
         }
 
         return $this;

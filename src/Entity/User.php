@@ -68,10 +68,17 @@ class User
     #[ORM\OneToMany(targetEntity: CollectionBord::class, mappedBy: 'editor')]
     private Collection $collectionBords;
 
+    /**
+     * @var Collection<int, Epreuve>
+     */
+    #[ORM\OneToMany(targetEntity: Epreuve::class, mappedBy: 'editor')]
+    private Collection $myEpreuvesPublished;
+
     public function __construct()
     {
         $this->myBooksPublished = new ArrayCollection();
         $this->collectionBords = new ArrayCollection();
+        $this->myEpreuvesPublished = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -289,6 +296,36 @@ class User
             // set the owning side to null (unless already changed)
             if ($collectionBord->getEditor() === $this) {
                 $collectionBord->setEditor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Epreuve>
+     */
+    public function getMyEpreuvesPublished(): Collection
+    {
+        return $this->myEpreuvesPublished;
+    }
+
+    public function addMyEpreuvesPublished(Epreuve $myEpreuvesPublished): static
+    {
+        if (!$this->myEpreuvesPublished->contains($myEpreuvesPublished)) {
+            $this->myEpreuvesPublished->add($myEpreuvesPublished);
+            $myEpreuvesPublished->setEditor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMyEpreuvesPublished(Epreuve $myEpreuvesPublished): static
+    {
+        if ($this->myEpreuvesPublished->removeElement($myEpreuvesPublished)) {
+            // set the owning side to null (unless already changed)
+            if ($myEpreuvesPublished->getEditor() === $this) {
+                $myEpreuvesPublished->setEditor(null);
             }
         }
 

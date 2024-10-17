@@ -43,11 +43,18 @@ class Classe
     #[ORM\ManyToMany(targetEntity: Bord::class, mappedBy: 'classe')]
     private Collection $bords;
 
+    /**
+     * @var Collection<int, Epreuve>
+     */
+    #[ORM\ManyToMany(targetEntity: Epreuve::class, mappedBy: 'classe')]
+    private Collection $epreuves;
+
     public function __construct()
     {
         $this->filiere = new ArrayCollection();
         $this->matieres = new ArrayCollection();
         $this->bords = new ArrayCollection();
+        $this->epreuves = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -164,6 +171,33 @@ class Classe
     {
         if ($this->bords->removeElement($bord)) {
             $bord->removeClasse($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Epreuve>
+     */
+    public function getEpreuves(): Collection
+    {
+        return $this->epreuves;
+    }
+
+    public function addEpreufe(Epreuve $epreufe): static
+    {
+        if (!$this->epreuves->contains($epreufe)) {
+            $this->epreuves->add($epreufe);
+            $epreufe->addClasse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEpreufe(Epreuve $epreufe): static
+    {
+        if ($this->epreuves->removeElement($epreufe)) {
+            $epreufe->removeClasse($this);
         }
 
         return $this;
