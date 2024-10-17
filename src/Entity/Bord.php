@@ -89,12 +89,19 @@ class Bord
     #[ORM\ManyToMany(targetEntity: matiere::class, inversedBy: 'bords')]
     private Collection $matiere;
 
+    /**
+     * @var Collection<int, Cours>
+     */
+    #[ORM\OneToMany(targetEntity: Cours::class, mappedBy: 'bord')]
+    private Collection $cours;
+
     public function __construct()
     {
         $this->section = new ArrayCollection();
         $this->filiere = new ArrayCollection();
         $this->classe = new ArrayCollection();
         $this->matiere = new ArrayCollection();
+        $this->cours = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -386,6 +393,36 @@ class Bord
     public function removeMatiere(matiere $matiere): static
     {
         $this->matiere->removeElement($matiere);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cours>
+     */
+    public function getCours(): Collection
+    {
+        return $this->cours;
+    }
+
+    public function addCour(Cours $cour): static
+    {
+        if (!$this->cours->contains($cour)) {
+            $this->cours->add($cour);
+            $cour->setBord($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCour(Cours $cour): static
+    {
+        if ($this->cours->removeElement($cour)) {
+            // set the owning side to null (unless already changed)
+            if ($cour->getBord() === $this) {
+                $cour->setBord(null);
+            }
+        }
 
         return $this;
     }
