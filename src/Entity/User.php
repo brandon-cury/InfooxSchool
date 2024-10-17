@@ -3,22 +3,38 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'users')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?role $role = null;
+    #[ORM\Column(length: 180)]
+    private ?string $email = null;
+
+    /**
+     * @var list<string> The user roles
+     */
+    #[ORM\Column]
+    private array $roles = [];
+
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
+
+
 
     #[ORM\Column(length: 255)]
     private ?string $first_name = null;
@@ -26,14 +42,8 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $last_name = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
-
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $email_verified_at = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
 
     #[ORM\Column(type: Types::BIGINT, nullable: true)]
     private ?string $tel = null;
@@ -74,52 +84,23 @@ class User
     #[ORM\OneToMany(targetEntity: Epreuve::class, mappedBy: 'editor')]
     private Collection $myEpreuvesPublished;
 
+    /**
+     * @var Collection<int, UserBord>
+     */
+    #[ORM\OneToMany(targetEntity: UserBord::class, mappedBy: 'user')]
+    private Collection $userBords;
+
     public function __construct()
     {
         $this->myBooksPublished = new ArrayCollection();
         $this->collectionBords = new ArrayCollection();
         $this->myEpreuvesPublished = new ArrayCollection();
+        $this->userBords = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getRole(): ?role
-    {
-        return $this->role;
-    }
-
-    public function setRole(?role $role): static
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    public function getFirstName(): ?string
-    {
-        return $this->first_name;
-    }
-
-    public function setFirstName(string $first_name): static
-    {
-        $this->first_name = $first_name;
-
-        return $this;
-    }
-
-    public function getLastName(): ?string
-    {
-        return $this->last_name;
-    }
-
-    public function setLastName(string $last_name): static
-    {
-        $this->last_name = $last_name;
-
-        return $this;
     }
 
     public function getEmail(): ?string
@@ -134,18 +115,43 @@ class User
         return $this;
     }
 
-    public function getEmailVerifiedAt(): ?\DateTimeImmutable
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
     {
-        return $this->email_verified_at;
+        return (string) $this->email;
     }
 
-    public function setEmailVerifiedAt(?\DateTimeImmutable $email_verified_at): static
+    /**
+     * @see UserInterface
+     *
+     * @return list<string>
+     */
+    public function getRoles(): array
     {
-        $this->email_verified_at = $email_verified_at;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    /**
+     * @param list<string> $roles
+     */
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
 
         return $this;
     }
 
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
     public function getPassword(): ?string
     {
         return $this->password;
@@ -154,6 +160,49 @@ class User
     public function setPassword(string $password): static
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+    public function getFirstName(): ?string
+    {
+        return $this->first_name;
+    }
+
+    public function setFirstName(string $first_name): static
+    {
+        $this->first_name = $first_name;
+
+        return $this;
+    }
+    public function getLastName(): ?string
+    {
+        return $this->last_name;
+    }
+
+    public function setLastName(string $last_name): static
+    {
+        $this->last_name = $last_name;
+
+        return $this;
+    }
+
+    public function getEmailVerifiedAt(): ?\DateTimeImmutable
+    {
+        return $this->email_verified_at;
+    }
+
+    public function setEmailVerifiedAt(?\DateTimeImmutable $email_verified_at): static
+    {
+        $this->email_verified_at = $email_verified_at;
 
         return $this;
     }
@@ -241,6 +290,7 @@ class User
 
         return $this;
     }
+
 
     /**
      * @return Collection<int, Bord>
@@ -331,4 +381,38 @@ class User
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, UserBord>
+     */
+    public function getUserBords(): Collection
+    {
+        return $this->userBords;
+    }
+
+    public function addUserBord(UserBord $userBord): static
+    {
+        if (!$this->userBords->contains($userBord)) {
+            $this->userBords->add($userBord);
+            $userBord->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserBord(UserBord $userBord): static
+    {
+        if ($this->userBords->removeElement($userBord)) {
+            // set the owning side to null (unless already changed)
+            if ($userBord->getUser() === $this) {
+                $userBord->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+
 }
