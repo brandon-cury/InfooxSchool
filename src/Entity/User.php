@@ -90,12 +90,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: UserBord::class, mappedBy: 'user')]
     private Collection $userBords;
 
+    /**
+     * @var Collection<int, MoneyWithdrawal>
+     */
+    #[ORM\OneToMany(targetEntity: MoneyWithdrawal::class, mappedBy: 'user')]
+    private Collection $moneyWithdrawals;
+
     public function __construct()
     {
         $this->myBooksPublished = new ArrayCollection();
         $this->collectionBords = new ArrayCollection();
         $this->myEpreuvesPublished = new ArrayCollection();
         $this->userBords = new ArrayCollection();
+        $this->moneyWithdrawals = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -406,6 +413,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($userBord->getUser() === $this) {
                 $userBord->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MoneyWithdrawal>
+     */
+    public function getMoneyWithdrawals(): Collection
+    {
+        return $this->moneyWithdrawals;
+    }
+
+    public function addMoneyWithdrawal(MoneyWithdrawal $moneyWithdrawal): static
+    {
+        if (!$this->moneyWithdrawals->contains($moneyWithdrawal)) {
+            $this->moneyWithdrawals->add($moneyWithdrawal);
+            $moneyWithdrawal->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMoneyWithdrawal(MoneyWithdrawal $moneyWithdrawal): static
+    {
+        if ($this->moneyWithdrawals->removeElement($moneyWithdrawal)) {
+            // set the owning side to null (unless already changed)
+            if ($moneyWithdrawal->getUser() === $this) {
+                $moneyWithdrawal->setUser(null);
             }
         }
 

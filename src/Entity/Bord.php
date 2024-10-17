@@ -107,6 +107,12 @@ class Bord
     #[ORM\OneToMany(targetEntity: UserBord::class, mappedBy: 'bord')]
     private Collection $userBords;
 
+    /**
+     * @var Collection<int, Image>
+     */
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'bord')]
+    private Collection $images;
+
     public function __construct()
     {
         $this->section = new ArrayCollection();
@@ -116,6 +122,7 @@ class Bord
         $this->cours = new ArrayCollection();
         $this->epreuves = new ArrayCollection();
         $this->userBords = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -495,6 +502,36 @@ class Bord
             // set the owning side to null (unless already changed)
             if ($userBord->getBord() === $this) {
                 $userBord->setBord(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): static
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setBord($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): static
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getBord() === $this) {
+                $image->setBord(null);
             }
         }
 
