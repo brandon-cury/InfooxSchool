@@ -90,9 +90,9 @@ class Bord
     private Collection $matiere;
 
     /**
-     * @var Collection<int, Cours>
+     * @var Collection<int, Cour>
      */
-    #[ORM\OneToMany(targetEntity: Cours::class, mappedBy: 'bord')]
+    #[ORM\OneToMany(targetEntity: Cour::class, mappedBy: 'bord')]
     private Collection $cours;
 
     /**
@@ -405,14 +405,14 @@ class Bord
     }
 
     /**
-     * @return Collection<int, Cours>
+     * @return Collection<int, Cour>
      */
     public function getCours(): Collection
     {
         return $this->cours;
     }
 
-    public function addCour(Cours $cour): static
+    public function addCour(Cour $cour): static
     {
         if (!$this->cours->contains($cour)) {
             $this->cours->add($cour);
@@ -422,7 +422,7 @@ class Bord
         return $this;
     }
 
-    public function removeCour(Cours $cour): static
+    public function removeCour(Cour $cour): static
     {
         if ($this->cours->removeElement($cour)) {
             // set the owning side to null (unless already changed)

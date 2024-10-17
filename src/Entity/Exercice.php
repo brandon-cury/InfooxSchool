@@ -2,26 +2,32 @@
 
 namespace App\Entity;
 
-use App\Repository\CoursRepository;
+use App\Repository\ExerciceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CoursRepository::class)]
-class Cours
+#[ORM\Entity(repositoryClass: ExerciceRepository::class)]
+class Exercice
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
-
-    #[ORM\ManyToOne(inversedBy: 'cours')]
+    #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?bord $bord = null;
+    private ?user $editor = null;
+
+    #[ORM\ManyToOne(inversedBy: 'exercices')]
+    private ?cour $cour = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $content = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $corrected = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $video_link = null;
@@ -43,26 +49,38 @@ class Cours
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getEditor(): ?user
     {
-        return $this->name;
+        return $this->editor;
     }
 
-    public function setName(string $name): static
+    public function setEditor(?user $editor): static
     {
-        $this->name = $name;
+        $this->editor = $editor;
 
         return $this;
     }
 
-    public function getBord(): ?bord
+    public function getCour(): ?cour
     {
-        return $this->bord;
+        return $this->cour;
     }
 
-    public function setBord(?bord $bord): static
+    public function setCour(?cour $cour): static
     {
-        $this->bord = $bord;
+        $this->cour = $cour;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): static
+    {
+        $this->title = $title;
 
         return $this;
     }
@@ -75,6 +93,18 @@ class Cours
     public function setContent(?string $content): static
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getCorrected(): ?string
+    {
+        return $this->corrected;
+    }
+
+    public function setCorrected(?string $corrected): static
+    {
+        $this->corrected = $corrected;
 
         return $this;
     }
