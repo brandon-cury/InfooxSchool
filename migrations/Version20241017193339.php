@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20241017172926 extends AbstractMigration
+final class Version20241017193339 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -37,12 +37,16 @@ final class Version20241017172926 extends AbstractMigration
         $this->addSql('CREATE TABLE exercice (id INT AUTO_INCREMENT NOT NULL, editor_id INT NOT NULL, cour_id INT DEFAULT NULL, title VARCHAR(255) NOT NULL, content VARCHAR(255) DEFAULT NULL, corrected VARCHAR(255) DEFAULT NULL, video_link VARCHAR(255) DEFAULT NULL, video_img VARCHAR(255) DEFAULT NULL, is_youtube TINYINT(1) NOT NULL, sort INT NOT NULL, is_container TINYINT(1) NOT NULL, INDEX IDX_E418C74D6995AC4C (editor_id), INDEX IDX_E418C74DB7942F03 (cour_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE filiere (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, sort INT NOT NULL, all_user BIGINT NOT NULL, image VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE filiere_section (filiere_id INT NOT NULL, section_id INT NOT NULL, INDEX IDX_4DFC386C180AA129 (filiere_id), INDEX IDX_4DFC386CD823E37A (section_id), PRIMARY KEY(filiere_id, section_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE image (id INT AUTO_INCREMENT NOT NULL, bord_id INT DEFAULT NULL, title VARCHAR(255) NOT NULL, path VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', sort INT NOT NULL, INDEX IDX_C53D045FD6B1F0E4 (bord_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE matiere (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, all_user BIGINT NOT NULL, sort INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE matiere_classe (matiere_id INT NOT NULL, classe_id INT NOT NULL, INDEX IDX_AF649A8BF46CD258 (matiere_id), INDEX IDX_AF649A8B8F5EA509 (classe_id), PRIMARY KEY(matiere_id, classe_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE money_withdrawal (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, total BIGINT NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', INDEX IDX_429E70A5A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE `order` (id INT AUTO_INCREMENT NOT NULL, transaction_id BIGINT NOT NULL, status TINYINT(1) NOT NULL, numb INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE role (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE section (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, sort INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, user_affiliate_id INT DEFAULT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, first_name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL, email_verified_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', tel BIGINT DEFAULT NULL, code_tel BIGINT DEFAULT NULL, number_affiliated INT NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', updated_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', image VARCHAR(255) DEFAULT NULL, INDEX IDX_8D93D6491FDEB898 (user_affiliate_id), UNIQUE INDEX UNIQ_IDENTIFIER_EMAIL (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE slider (id INT AUTO_INCREMENT NOT NULL, image VARCHAR(255) NOT NULL, title VARCHAR(255) NOT NULL, link VARCHAR(255) DEFAULT NULL, recorded_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', end_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', sort INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, user_affiliate_id INT DEFAULT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, first_name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL, email_verified_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', tel BIGINT DEFAULT NULL, code_tel BIGINT DEFAULT NULL, number_affiliated INT NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', updated_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', avatar VARCHAR(255) DEFAULT NULL, INDEX IDX_8D93D6491FDEB898 (user_affiliate_id), UNIQUE INDEX UNIQ_IDENTIFIER_EMAIL (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE user_bord (id INT AUTO_INCREMENT NOT NULL, bord_id INT NOT NULL, user_id INT NOT NULL, recorded_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', end_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', INDEX IDX_DEB79E75D6B1F0E4 (bord_id), INDEX IDX_DEB79E75A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE messenger_messages (id BIGINT AUTO_INCREMENT NOT NULL, body LONGTEXT NOT NULL, headers LONGTEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', available_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', delivered_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', INDEX IDX_75EA56E0FB7336F0 (queue_name), INDEX IDX_75EA56E0E3BD61CE (available_at), INDEX IDX_75EA56E016BA31DB (delivered_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE bord ADD CONSTRAINT FK_A436D2BC6995AC4C FOREIGN KEY (editor_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE bord ADD CONSTRAINT FK_A436D2BC514956FD FOREIGN KEY (collection_id) REFERENCES collection_bord (id)');
@@ -72,9 +76,13 @@ final class Version20241017172926 extends AbstractMigration
         $this->addSql('ALTER TABLE exercice ADD CONSTRAINT FK_E418C74DB7942F03 FOREIGN KEY (cour_id) REFERENCES cour (id)');
         $this->addSql('ALTER TABLE filiere_section ADD CONSTRAINT FK_4DFC386C180AA129 FOREIGN KEY (filiere_id) REFERENCES filiere (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE filiere_section ADD CONSTRAINT FK_4DFC386CD823E37A FOREIGN KEY (section_id) REFERENCES section (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE image ADD CONSTRAINT FK_C53D045FD6B1F0E4 FOREIGN KEY (bord_id) REFERENCES bord (id)');
         $this->addSql('ALTER TABLE matiere_classe ADD CONSTRAINT FK_AF649A8BF46CD258 FOREIGN KEY (matiere_id) REFERENCES matiere (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE matiere_classe ADD CONSTRAINT FK_AF649A8B8F5EA509 FOREIGN KEY (classe_id) REFERENCES classe (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE money_withdrawal ADD CONSTRAINT FK_429E70A5A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE user ADD CONSTRAINT FK_8D93D6491FDEB898 FOREIGN KEY (user_affiliate_id) REFERENCES user (id)');
+        $this->addSql('ALTER TABLE user_bord ADD CONSTRAINT FK_DEB79E75D6B1F0E4 FOREIGN KEY (bord_id) REFERENCES bord (id)');
+        $this->addSql('ALTER TABLE user_bord ADD CONSTRAINT FK_DEB79E75A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
     }
 
     public function down(Schema $schema): void
@@ -108,9 +116,13 @@ final class Version20241017172926 extends AbstractMigration
         $this->addSql('ALTER TABLE exercice DROP FOREIGN KEY FK_E418C74DB7942F03');
         $this->addSql('ALTER TABLE filiere_section DROP FOREIGN KEY FK_4DFC386C180AA129');
         $this->addSql('ALTER TABLE filiere_section DROP FOREIGN KEY FK_4DFC386CD823E37A');
+        $this->addSql('ALTER TABLE image DROP FOREIGN KEY FK_C53D045FD6B1F0E4');
         $this->addSql('ALTER TABLE matiere_classe DROP FOREIGN KEY FK_AF649A8BF46CD258');
         $this->addSql('ALTER TABLE matiere_classe DROP FOREIGN KEY FK_AF649A8B8F5EA509');
+        $this->addSql('ALTER TABLE money_withdrawal DROP FOREIGN KEY FK_429E70A5A76ED395');
         $this->addSql('ALTER TABLE user DROP FOREIGN KEY FK_8D93D6491FDEB898');
+        $this->addSql('ALTER TABLE user_bord DROP FOREIGN KEY FK_DEB79E75D6B1F0E4');
+        $this->addSql('ALTER TABLE user_bord DROP FOREIGN KEY FK_DEB79E75A76ED395');
         $this->addSql('DROP TABLE bord');
         $this->addSql('DROP TABLE bord_section');
         $this->addSql('DROP TABLE bord_filiere');
@@ -128,12 +140,16 @@ final class Version20241017172926 extends AbstractMigration
         $this->addSql('DROP TABLE exercice');
         $this->addSql('DROP TABLE filiere');
         $this->addSql('DROP TABLE filiere_section');
+        $this->addSql('DROP TABLE image');
         $this->addSql('DROP TABLE matiere');
         $this->addSql('DROP TABLE matiere_classe');
+        $this->addSql('DROP TABLE money_withdrawal');
         $this->addSql('DROP TABLE `order`');
         $this->addSql('DROP TABLE role');
         $this->addSql('DROP TABLE section');
+        $this->addSql('DROP TABLE slider');
         $this->addSql('DROP TABLE user');
+        $this->addSql('DROP TABLE user_bord');
         $this->addSql('DROP TABLE messenger_messages');
     }
 }

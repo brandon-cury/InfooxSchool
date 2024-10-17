@@ -64,7 +64,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTimeImmutable $updated_at = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image = null;
+    private ?string $avatar = null;
 
     /**
      * @var Collection<int, Bord>
@@ -286,14 +286,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getAvatar(): ?string
     {
-        return $this->image;
+        return $this->avatar;
     }
 
-    public function setImage(?string $image): static
+    public function setAvatar(?string $avatar): static
     {
-        $this->image = $image;
+        $this->avatar = $avatar;
 
         return $this;
     }
