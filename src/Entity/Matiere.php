@@ -150,7 +150,7 @@ class Matiere
         return $this->epreuves;
     }
 
-    public function addEpreufe(Epreuve $epreufe): static
+    public function addEpreuve(Epreuve $epreufe): static
     {
         if (!$this->epreuves->contains($epreufe)) {
             $this->epreuves->add($epreufe);
@@ -160,7 +160,7 @@ class Matiere
         return $this;
     }
 
-    public function removeEpreufe(Epreuve $epreufe): static
+    public function removeEpreuve(Epreuve $epreufe): static
     {
         if ($this->epreuves->removeElement($epreufe)) {
             $epreufe->removeMatiere($this);

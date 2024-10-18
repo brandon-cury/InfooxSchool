@@ -56,7 +56,7 @@ class Section
         return $this->title;
     }
 
-    public function setName(string $title): static
+    public function setTitle(string $title): static
     {
         $this->title = $title;
 

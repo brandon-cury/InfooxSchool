@@ -456,7 +456,7 @@ class Bord
         return $this->epreuves;
     }
 
-    public function addEpreufe(Epreuve $epreufe): static
+    public function addEpreuve(Epreuve $epreufe): static
     {
         if (!$this->epreuves->contains($epreufe)) {
             $this->epreuves->add($epreufe);
@@ -466,7 +466,7 @@ class Bord
         return $this;
     }
 
-    public function removeEpreufe(Epreuve $epreufe): static
+    public function removeEpreuve(Epreuve $epreufe): static
     {
         if ($this->epreuves->removeElement($epreufe)) {
             // set the owning side to null (unless already changed)

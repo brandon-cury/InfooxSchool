@@ -199,20 +199,20 @@ class Filiere
         return $this->epreuves;
     }
 
-    public function addEpreufe(Epreuve $epreufe): static
+    public function addEpreuve(Epreuve $epreuve): static
     {
-        if (!$this->epreuves->contains($epreufe)) {
-            $this->epreuves->add($epreufe);
-            $epreufe->addFiliere($this);
+        if (!$this->epreuves->contains($epreuve)) {
+            $this->epreuves->add($epreuve);
+            $epreuve->addFiliere($this);
         }
 
         return $this;
     }
 
-    public function removeEpreufe(Epreuve $epreufe): static
+    public function removeEpreuve(Epreuve $epreuve): static
     {
-        if ($this->epreuves->removeElement($epreufe)) {
-            $epreufe->removeFiliere($this);
+        if ($this->epreuves->removeElement($epreuve)) {
+            $epreuve->removeFiliere($this);
         }
 
         return $this;

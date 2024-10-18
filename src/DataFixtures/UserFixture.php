@@ -28,7 +28,8 @@ class UserFixture extends Fixture
             ->setLastName($faker->lastName);
             if($faker->boolean(70)){
                 $user->setTel(670104245)
-                    ->setCodeTel(237);
+                    ->setCodeTel(237)
+                    ->setAvatar($faker->imageUrl($width = 640, $height = 480));
             }
             $user->setNumberAffiliated(5)
                 ->setcreatedAt(new \DateTimeImmutable());

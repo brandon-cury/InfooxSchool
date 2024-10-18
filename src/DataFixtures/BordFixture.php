@@ -3,7 +3,11 @@
 namespace App\DataFixtures;
 
 use App\Entity\Bord;
+use App\Entity\Classe;
 use App\Entity\CollectionBord;
+use App\Entity\Filiere;
+use App\Entity\Matiere;
+use App\Entity\Section;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -14,32 +18,58 @@ class BordFixture extends Fixture implements DependentFixtureInterface
 {
     private array $users;
     private array $collectionBords;
+
+    private array $sections;
+
+    private array $classes;
+
+    private array $filieres;
+
+    private array $matieres;
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
         $this->users = $manager->getRepository(User::class)->findAll();
         $this->collectionBords = $manager->getRepository(CollectionBord::class)->findAll();
-        for ($i = 1; $i <= 50; $i++) {
-            $bord = new Bord();
-            $bord->setEditor($faker->randomElement($this->users))
-            ->setCollection($faker->randomElement($this->collectionBords))
-            ->setTitle($faker->sentence($faker->numberBetween(2, 5)))
-            ->setAuthor($faker->name)
-            ->setKeyword($faker->sentence($faker->numberBetween(2, 15) ))
-            ->setOnlineAccess($faker->boolean(70))
-            ->setAllUser($faker->numberBetween(0, 5455))
-            ->setStar($faker->numberBetween(0, 5));
-            if($faker->boolean(70)){
-                $bord->setPrice($faker->numberBetween(0, 3000))
-                ->setWhatsappNumber(237670104245)
-                ->setDescription($faker->paragraph($faker->numberBetween(2, 5)))
-                    ->setLastUpdateAt(new \DateTimeImmutable());;
+        $this->sections = $manager->getRepository(Section::class)->findAll();
+        $this->classes = $manager->getRepository(Classe::class)->findAll();
+        $this->filieres = $manager->getRepository(Filiere::class)->findAll();
+        $this->matieres = $manager->getRepository(Matiere::class)->findAll();
+        foreach ($this->users as $user) {
+            if(!empty($user->getCollectionBords())){
+                for ($i = 1; $i <= $faker->numberBetween(1, 5); $i++) {
+                    $bord = new Bord();
+                    $section_choisie = $faker->randomElement($this->sections);
+                    $filiere_choisie = $faker->randomElement($section_choisie->getFilieres());
+                    $classe_choisie = $faker->randomElement($filiere_choisie->getClasses());
+                    $matiere_choisie = $faker->randomElement($classe_choisie->getMatieres());
+                    $bord->setEditor($faker->randomElement($this->users))
+                        ->addSection($section_choisie)
+                        ->addFiliere($filiere_choisie)
+                        ->addClasse($classe_choisie)
+                        ->addMatiere($matiere_choisie)
+                        ->setCollection($faker->randomElement($user->getCollectionBords()))
+                        ->setTitle($faker->sentence($faker->numberBetween(2, 5)))
+                        ->setAuthor($faker->name)
+                        ->setKeyword($faker->sentence($faker->numberBetween(2, 15) ))
+                        ->setOnlineAccess($faker->boolean(70))
+                        ->setAllUser($faker->numberBetween(0, 5455))
+                        ->setStar($faker->numberBetween(0, 5));
+                    if($faker->boolean(70)){
+                        $bord->setPrice($faker->numberBetween(0, 3000))
+                            ->setWhatsappNumber(237670104245)
+                            ->setDescription($faker->paragraph($faker->numberBetween(2, 5)))
+                            ->setLastUpdateAt(new \DateTimeImmutable());;
+
+                    }
+                    $bord->setAllGainBord(100)
+                        ->setAllGainInfooxschool(100)
+                        ->setOnligne($faker->boolean(70));
+                    $manager->persist($bord);
+                }
             }
-            $bord->setAllGainBord(100)
-                ->setAllGainInfooxschool(100)
-                ->setOnligne($faker->boolean(70));
-            $manager->persist($bord);
         }
+
 
 
         $manager->flush();
@@ -49,7 +79,11 @@ class BordFixture extends Fixture implements DependentFixtureInterface
     {
         return [
             UserFixture::class,
-            CollectionBordFixture::class
+            CollectionBordFixture::class,
+            SectionFixture::class,
+            ClasseFixture::class,
+            FiliereFixture::class,
+            MatiereFixture::class,
         ];
     }
 }
