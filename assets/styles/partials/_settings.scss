@@ -58,13 +58,104 @@ h6 {
   font-size: calc(1.125rem + 1.5vw);
 }
 /* endSetting */
-/* Navbar */
-
-/* phone */
-@media screen and (max-width: 576px) {
-  html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 200px;
+/* Navbar principale*/
+nav{
+  background: $color-black;
+  .logo{
+    height: 30px;
+    width: auto;
   }
+  .navbar-toggler{
+    color: $color-black;
+  }
+  .container-fluid{
+    &.navPc{
+      display: none ;
+    }
+    .nav-item{
+      border-bottom: 1px solid $color-gris;
+      .nav-link{
+        color:$color-white;
+        text-indent: 10px;
+        &.active{
+          background: $color-black-opacity;
+        }
+      }
+      .nav-link:hover{
+        background: $color-black-opacity;
+      }
+    }
+    .offcanvas{
+      background: $color-black;
+      .offcanvas-title{
+        color: $color-white;
+      }
+    }
+  }
+  .searchButton{
+    background: $color-yellow;
+    padding: 9px 15px;
+    right: 20px;
+    border: none;
+  }
+  .inputSearch{
+    background: $color-yellow-claire;
+  }
+
 }
-/* endphone */
+/* endNavbar principale*/
+/* Navbar secondaire */
+.navbar2Infoox{
+  position: relative;
+  background-color: $color-white;
+  width: 100%;
+  height: auto;
+  overflow:hidden;
+  .containerInfoox{
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    ul{
+      display: flex;
+      margin: 0;
+      padding: 0;
+      li{
+        list-style: none;
+        flex: 0 0 auto;
+        a{
+          display: block;
+          margin: 7px 10px;
+          text-decoration: none;
+          color: $color-black;
+          padding: 10px 40px;
+        }
+      }
+    }
+  }
+
+}
+/* endNavbar secondaire */
+/* Tablette */
+@media screen and (min-width: 768px) {
+  /* Navbar */
+  nav{
+    .logo{
+      height: 35px;
+    }
+  }
+  /* endNavbar */
+}
+/* endTablette */
+/* Desktops */
+@media screen and (min-width: 992px) {
+  nav{
+    .navPhone{
+      display: none !important;
+    }
+    .container-fluid.navPc{
+      display:flex;
+    }
+  }
+
+}
+/* endDesktops */
