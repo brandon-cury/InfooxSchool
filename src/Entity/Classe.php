@@ -49,6 +49,9 @@ class Classe
     #[ORM\ManyToMany(targetEntity: Epreuve::class, mappedBy: 'classe')]
     private Collection $epreuves;
 
+    #[ORM\ManyToOne(inversedBy: 'classes')]
+    private ?examen $examen = null;
+
     public function __construct()
     {
         $this->filiere = new ArrayCollection();
@@ -199,6 +202,18 @@ class Classe
         if ($this->epreuves->removeElement($epreufe)) {
             $epreufe->removeClasse($this);
         }
+
+        return $this;
+    }
+
+    public function getExamen(): ?examen
+    {
+        return $this->examen;
+    }
+
+    public function setExamen(?examen $examen): static
+    {
+        $this->examen = $examen;
 
         return $this;
     }

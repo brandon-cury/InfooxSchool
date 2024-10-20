@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20241018142425 extends AbstractMigration
+final class Version20241020172741 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -25,7 +25,7 @@ final class Version20241018142425 extends AbstractMigration
         $this->addSql('CREATE TABLE bord_filiere (bord_id INT NOT NULL, filiere_id INT NOT NULL, INDEX IDX_B019B081D6B1F0E4 (bord_id), INDEX IDX_B019B081180AA129 (filiere_id), PRIMARY KEY(bord_id, filiere_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE bord_classe (bord_id INT NOT NULL, classe_id INT NOT NULL, INDEX IDX_22FF0391D6B1F0E4 (bord_id), INDEX IDX_22FF03918F5EA509 (classe_id), PRIMARY KEY(bord_id, classe_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE bord_matiere (bord_id INT NOT NULL, matiere_id INT NOT NULL, INDEX IDX_EDDBA55D6B1F0E4 (bord_id), INDEX IDX_EDDBA55F46CD258 (matiere_id), PRIMARY KEY(bord_id, matiere_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE classe (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, all_user BIGINT NOT NULL, sort INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE classe (id INT AUTO_INCREMENT NOT NULL, examen_id INT DEFAULT NULL, title VARCHAR(255) NOT NULL, all_user BIGINT NOT NULL, sort INT NOT NULL, INDEX IDX_8F87BF965C8659A (examen_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE classe_filiere (classe_id INT NOT NULL, filiere_id INT NOT NULL, INDEX IDX_55493DFF8F5EA509 (classe_id), INDEX IDX_55493DFF180AA129 (filiere_id), PRIMARY KEY(classe_id, filiere_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE collection_bord (id INT AUTO_INCREMENT NOT NULL, editor_id INT NOT NULL, title VARCHAR(255) NOT NULL, INDEX IDX_EE41FE526995AC4C (editor_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE cour (id INT AUTO_INCREMENT NOT NULL, bord_id INT NOT NULL, title VARCHAR(255) NOT NULL, content VARCHAR(255) DEFAULT NULL, video_link VARCHAR(255) DEFAULT NULL, video_img VARCHAR(255) DEFAULT NULL, is_youtube TINYINT(1) NOT NULL, sort INT NOT NULL, is_container TINYINT(1) NOT NULL, INDEX IDX_A71F964FD6B1F0E4 (bord_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -34,6 +34,7 @@ final class Version20241018142425 extends AbstractMigration
         $this->addSql('CREATE TABLE epreuve_filiere (epreuve_id INT NOT NULL, filiere_id INT NOT NULL, INDEX IDX_7B303512AB990336 (epreuve_id), INDEX IDX_7B303512180AA129 (filiere_id), PRIMARY KEY(epreuve_id, filiere_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE epreuve_classe (epreuve_id INT NOT NULL, classe_id INT NOT NULL, INDEX IDX_6AC91C21AB990336 (epreuve_id), INDEX IDX_6AC91C218F5EA509 (classe_id), PRIMARY KEY(epreuve_id, classe_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE epreuve_matiere (epreuve_id INT NOT NULL, matiere_id INT NOT NULL, INDEX IDX_C5F43FC6AB990336 (epreuve_id), INDEX IDX_C5F43FC6F46CD258 (matiere_id), PRIMARY KEY(epreuve_id, matiere_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE examen (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, image VARCHAR(255) DEFAULT NULL, sort INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE exercice (id INT AUTO_INCREMENT NOT NULL, editor_id INT NOT NULL, cour_id INT DEFAULT NULL, title VARCHAR(255) NOT NULL, content VARCHAR(255) DEFAULT NULL, corrected VARCHAR(255) DEFAULT NULL, video_link VARCHAR(255) DEFAULT NULL, video_img VARCHAR(255) DEFAULT NULL, is_youtube TINYINT(1) NOT NULL, sort INT NOT NULL, is_container TINYINT(1) NOT NULL, INDEX IDX_E418C74D6995AC4C (editor_id), INDEX IDX_E418C74DB7942F03 (cour_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE filiere (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, sort INT NOT NULL, all_user BIGINT NOT NULL, image VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE filiere_section (filiere_id INT NOT NULL, section_id INT NOT NULL, INDEX IDX_4DFC386C180AA129 (filiere_id), INDEX IDX_4DFC386CD823E37A (section_id), PRIMARY KEY(filiere_id, section_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -57,6 +58,7 @@ final class Version20241018142425 extends AbstractMigration
         $this->addSql('ALTER TABLE bord_classe ADD CONSTRAINT FK_22FF03918F5EA509 FOREIGN KEY (classe_id) REFERENCES classe (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE bord_matiere ADD CONSTRAINT FK_EDDBA55D6B1F0E4 FOREIGN KEY (bord_id) REFERENCES bord (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE bord_matiere ADD CONSTRAINT FK_EDDBA55F46CD258 FOREIGN KEY (matiere_id) REFERENCES matiere (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE classe ADD CONSTRAINT FK_8F87BF965C8659A FOREIGN KEY (examen_id) REFERENCES examen (id)');
         $this->addSql('ALTER TABLE classe_filiere ADD CONSTRAINT FK_55493DFF8F5EA509 FOREIGN KEY (classe_id) REFERENCES classe (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE classe_filiere ADD CONSTRAINT FK_55493DFF180AA129 FOREIGN KEY (filiere_id) REFERENCES filiere (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE collection_bord ADD CONSTRAINT FK_EE41FE526995AC4C FOREIGN KEY (editor_id) REFERENCES user (id)');
@@ -97,6 +99,7 @@ final class Version20241018142425 extends AbstractMigration
         $this->addSql('ALTER TABLE bord_classe DROP FOREIGN KEY FK_22FF03918F5EA509');
         $this->addSql('ALTER TABLE bord_matiere DROP FOREIGN KEY FK_EDDBA55D6B1F0E4');
         $this->addSql('ALTER TABLE bord_matiere DROP FOREIGN KEY FK_EDDBA55F46CD258');
+        $this->addSql('ALTER TABLE classe DROP FOREIGN KEY FK_8F87BF965C8659A');
         $this->addSql('ALTER TABLE classe_filiere DROP FOREIGN KEY FK_55493DFF8F5EA509');
         $this->addSql('ALTER TABLE classe_filiere DROP FOREIGN KEY FK_55493DFF180AA129');
         $this->addSql('ALTER TABLE collection_bord DROP FOREIGN KEY FK_EE41FE526995AC4C');
@@ -136,6 +139,7 @@ final class Version20241018142425 extends AbstractMigration
         $this->addSql('DROP TABLE epreuve_filiere');
         $this->addSql('DROP TABLE epreuve_classe');
         $this->addSql('DROP TABLE epreuve_matiere');
+        $this->addSql('DROP TABLE examen');
         $this->addSql('DROP TABLE exercice');
         $this->addSql('DROP TABLE filiere');
         $this->addSql('DROP TABLE filiere_section');
