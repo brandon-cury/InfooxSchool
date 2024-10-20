@@ -1,4 +1,4 @@
-<header>
+<header class="">
     <nav class="navbar">
 
         <div class="container-fluid navPhone">
@@ -9,7 +9,7 @@
 
                 </button>
                 <a class="navbar-brand" href="#">
-                    <img class="logo" src="{{ asset('build/logo/infoox1.png') }}" alt="logso infoox school">
+                    <img class="logo" src="{{ asset('logo/infoox1.png') }}" alt="logso infoox school">
                 </a>
             </div>
             <div>
@@ -17,7 +17,7 @@
                 <a href="" class="text-decoration-none me-4">
                     <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" viewBox="0 0 48 48"><g fill="none"><path d="M39 32H13L8 12h36z"/><path stroke="#FBFAFA" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M3 6h3.5L8 12m0 0l5 20h26l5-20z"/><circle cx="13" cy="39" r="3" stroke="#FBFAFA" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><circle cx="39" cy="39" r="3" stroke="#FBFAFA" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/></g></svg>
                 </a>
-                <a href="" class="text-decoration-none">
+                <a href="#" class="text-decoration-none">
                     <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" viewBox="0 0 24 24"><g fill="none" stroke="#FBFAFA" stroke-width="2"><circle cx="12" cy="6" r="4"/><path d="M20 17.5c0 2.485 0 4.5-8 4.5s-8-2.015-8-4.5S7.582 13 12 13s8 2.015 8 4.5Z"/></g></svg>
                 </a>
 
@@ -58,7 +58,7 @@
         <div class="container-fluid my-1 navPc">
             <div>
                 <a class="navbar-brand" href="#">
-                    <img class="logo" src="{{ asset('build/logo/infoox1.png') }}" alt="logso infoox school">
+                    <img class="logo" src="{{ asset('logo/infoox1.png') }}" alt="logso infoox school">
                 </a>
             </div>
             <form class="d-flex w-50 mx-2" role="search">
@@ -66,7 +66,7 @@
                 <button class="rounded-0 rounded-end searchButton" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="1.4rem" height="1.4rem" viewBox="0 0 24 24"><path fill="none" stroke="#F3EDED" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.45" d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0-14 0m18 11l-6-6"/></svg></button>
             </form>
             <div>
-                <a href="" class="text-decoration-none">
+                <a href="#" class="text-decoration-none">
                     <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" viewBox="0 0 48 48"><g fill="none"><path d="M39 32H13L8 12h36z"/><path stroke="#FBFAFA" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M3 6h3.5L8 12m0 0l5 20h26l5-20z"/><circle cx="13" cy="39" r="3" stroke="#FBFAFA" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><circle cx="39" cy="39" r="3" stroke="#FBFAFA" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/></g></svg>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -100,49 +100,142 @@
 
     </nav>
 
-    <!-- debut de la deuxieme navbar d'afficharger des milleur livre  -->
-    <div class="navbar2Infoox">
+     {% if true %}
+         <!-- debut de la deuxieme navbar d'afficharger des milleur livre  -->
+         <div id="navbar2InfooxJs">
+            <div class="phone navbar2Infoox">
+                <div class="containerInfoox">
+                 <ul>
+                     <li>
+                         <a class="p-2 rounded-2 bg-dark-subtle" href="#">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="1.4rem" height="1.4rem" viewBox="0 0 24 24"><path fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m2.357 7.714l6.98 4.654c.963.641 1.444.962 1.964 1.087c.46.11.939.11 1.398 0c.52-.125 1.001-.446 1.964-1.087l6.98-4.654M7.157 19.5h9.686c1.68 0 2.52 0 3.162-.327a3 3 0 0 0 1.31-1.311c.328-.642.328-1.482.328-3.162V9.3c0-1.68 0-2.52-.327-3.162a3 3 0 0 0-1.311-1.311c-.642-.327-1.482-.327-3.162-.327H7.157c-1.68 0-2.52 0-3.162.327a3 3 0 0 0-1.31 1.311c-.328.642-.328 1.482-.328 3.162v5.4c0 1.68 0 2.52.327 3.162a3 3 0 0 0 1.311 1.311c.642.327 1.482.327 3.162.327"/></svg>
+                         </a>
+                     </li>
+                     <li>
+                         <a class="p-2 rounded-2 bg-dark-subtle" href="#">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="1.4rem" height="1.4rem" viewBox="0 0 12 12"><path fill="black" d="M3 5v1.5a.5.5 0 0 1-.053.224L2.31 8h7.382l-.638-1.276A.5.5 0 0 1 9 6.5V5a3 3 0 0 0-6 0m1 4H1.5a.5.5 0 0 1-.447-.724L2 6.382V5a4 4 0 1 1 8 0v1.382l.947 1.894A.5.5 0 0 1 10.5 9H8a2 2 0 1 1-4 0m3 0H5a1 1 0 0 0 2 0"/></svg>
+                         </a>
+                     </li>
+                     <li>
+                         <a @click="getElement" class="p-2" data-bs-toggle="collapse" href="#meilleuresVentes" role="button" aria-expanded="false" aria-controls="collapseExample">
+                             Meilleures ventes
+                         </a>
+                     </li>
+                     <li>
+                         <a @click="getElement" class="p-2" data-bs-toggle="collapse" href="#astucesScolaires" role="button" aria-expanded="false" aria-controls="collapseExample">
+                             Astuces Scolaires
+                         </a>
+                     </li>
 
-        <div class="containerInfoox">
-            <ul>
-                <li>
-                    <a class="p-2 rounded-2 bg-dark-subtle" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1.4rem" height="1.4rem" viewBox="0 0 24 24"><path fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m2.357 7.714l6.98 4.654c.963.641 1.444.962 1.964 1.087c.46.11.939.11 1.398 0c.52-.125 1.001-.446 1.964-1.087l6.98-4.654M7.157 19.5h9.686c1.68 0 2.52 0 3.162-.327a3 3 0 0 0 1.31-1.311c.328-.642.328-1.482.328-3.162V9.3c0-1.68 0-2.52-.327-3.162a3 3 0 0 0-1.311-1.311c-.642-.327-1.482-.327-3.162-.327H7.157c-1.68 0-2.52 0-3.162.327a3 3 0 0 0-1.31 1.311c-.328.642-.328 1.482-.328 3.162v5.4c0 1.68 0 2.52.327 3.162a3 3 0 0 0 1.311 1.311c.642.327 1.482.327 3.162.327"/></svg>
-                    </a>
-                </li>
-                <li>
-                    <a class="p-2 rounded-2 bg-dark-subtle" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1.4rem" height="1.4rem" viewBox="0 0 12 12"><path fill="black" d="M3 5v1.5a.5.5 0 0 1-.053.224L2.31 8h7.382l-.638-1.276A.5.5 0 0 1 9 6.5V5a3 3 0 0 0-6 0m1 4H1.5a.5.5 0 0 1-.447-.724L2 6.382V5a4 4 0 1 1 8 0v1.382l.947 1.894A.5.5 0 0 1 10.5 9H8a2 2 0 1 1-4 0m3 0H5a1 1 0 0 0 2 0"/></svg>
-                    </a>
-                </li>
-                <li>
-                    <a class="p-2" data-bs-toggle="collapse" href="#meilleuresVentes" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        Meilleures ventes
-                    </a>
-                </li>
-                <li>
-                    <a class="p-2" data-bs-toggle="collapse" href="#astucesScolaires" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        Astuces Scolaires
-                    </a>
-                </li>
+                 </ul>
+             </div>
+            </div>
+             <div class="pc navbar2Infoox">
+                 <div class="containerInfoox">
+                     <ul>
+                         <li>
+                             <a @click="getElement" class="p-2" data-bs-toggle="collapse" href="#meilleuresVentes" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                 Meilleures ventes Pc
+                             </a>
+                         </li>
+                         <li>
+                             <a @click="getElement" class="p-2" data-bs-toggle="collapse" href="#astucesScolaires" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                 Astuces Scolaires
+                             </a>
+                         </li>
+                     </ul>
+                     <ul>
+                         <li>
+                             <a class="p-2 rounded-2 bg-dark-subtle" href="#">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="1.4rem" height="1.4rem" viewBox="0 0 24 24"><path fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m2.357 7.714l6.98 4.654c.963.641 1.444.962 1.964 1.087c.46.11.939.11 1.398 0c.52-.125 1.001-.446 1.964-1.087l6.98-4.654M7.157 19.5h9.686c1.68 0 2.52 0 3.162-.327a3 3 0 0 0 1.31-1.311c.328-.642.328-1.482.328-3.162V9.3c0-1.68 0-2.52-.327-3.162a3 3 0 0 0-1.311-1.311c-.642-.327-1.482-.327-3.162-.327H7.157c-1.68 0-2.52 0-3.162.327a3 3 0 0 0-1.31 1.311c-.328.642-.328 1.482-.328 3.162v5.4c0 1.68 0 2.52.327 3.162a3 3 0 0 0 1.311 1.311c.642.327 1.482.327 3.162.327"/></svg>
+                             </a>
+                         </li>
+                         <li>
+                             <a class="p-2 rounded-2 bg-dark-subtle" href="#">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="1.4rem" height="1.4rem" viewBox="0 0 12 12"><path fill="black" d="M3 5v1.5a.5.5 0 0 1-.053.224L2.31 8h7.382l-.638-1.276A.5.5 0 0 1 9 6.5V5a3 3 0 0 0-6 0m1 4H1.5a.5.5 0 0 1-.447-.724L2 6.382V5a4 4 0 1 1 8 0v1.382l.947 1.894A.5.5 0 0 1 10.5 9H8a2 2 0 1 1-4 0m3 0H5a1 1 0 0 0 2 0"/></svg>
+                             </a>
+                         </li>
+                         <li>
+                             <a class="p-0 overflow-hidden avatarInfoox" href="#">
+                                 <img src="{{ asset('other/user.png') }}" class="rounded-circle" alt="avatar">
+                             </a>
+                         </li>
+                     </ul>
+                 </div>
+             </div>
 
-            </ul>
-        </div>
+            <div class="collapse infooxNavbar2Contains" id="meilleuresVentes">
+                <div class="card card-body containerInfoox">
+                 <ul>
+                     <li>
+                         <a href="">
+                             <img src="{{ asset('bords/test/images/image.jpg') }}" alt="livre" class="img-thumbnail">
+                         </a>
+                     </li>
+                     <li>
+                         <a href="">
+                             <img src="{{ asset('bords/test/images/image.jpg') }}" alt="livre" class="img-thumbnail">
+                         </a>
+                     </li>
+                     <li>
+                         <a href="">
+                             <img src="{{ asset('bords/test/images/image.jpg') }}" alt="livre" class="img-thumbnail">
+                         </a>
+                     </li>
+                     <li>
+                         <a href="">
+                             <img src="{{ asset('bords/test/images/image.jpg') }}" alt="livre" class="img-thumbnail">
+                         </a>
+                     </li>
+                     <li>
+                         <a href="">
+                             <img src="{{ asset('bords/test/images/image.jpg') }}" alt="livre" class="img-thumbnail">
+                         </a>
+                     </li>
 
-    </div>
+                 </ul>
+             </div>
+            </div>
 
+            <div class="collapse infooxNavbar2Contains" id="astucesScolaires">
+                <div class="card card-body containerInfoox">
+                    <ul>
+                        <li>
+                            <a href="">
+                                <img src="{{ asset('bords/test/images/image.jpg') }}" alt="livre" class="img-thumbnail">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img src="{{ asset('bords/test/images/image.jpg') }}" alt="livre" class="img-thumbnail">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img src="{{ asset('bords/test/images/image.jpg') }}" alt="livre" class="img-thumbnail">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img src="{{ asset('bords/test/images/image.jpg') }}" alt="livre" class="img-thumbnail">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img src="{{ asset('bords/test/images/image.jpg') }}" alt="livre" class="img-thumbnail">
+                            </a>
+                        </li>
 
-    <div class="collapse" id="meilleuresVentes">
-        <div class="card card-body">
-            meilleures Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-        </div>
-    </div>
+                    </ul>
+                </div>
+            </div>
+         </div>
 
-    <div class="collapse" id="astucesScolaires">
-        <div class="card card-body">
-            astuces Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-        </div>
-    </div>
+         <!-- fin de la deuxieme navbar d'afficharger des milleur livre  -->
+    {% endif %}
+
+    {% block sliderPrincipale %} {% endblock sliderPrincipale %}
+
 
 
 </header>

@@ -3,6 +3,10 @@ import './bootstrap.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap';
 
+//imoirtation des fichier js de composant a utiliser dans toute l'application
+import './js/navbar2';
+import './js/sliderPrincipale';
+
 /*
  * Welcome to your app's main JavaScript file!
  *

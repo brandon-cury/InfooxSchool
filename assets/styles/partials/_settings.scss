@@ -103,6 +103,12 @@ nav{
   }
 
 }
+.phone{
+  display: block;
+}
+.pc{
+  display: none;
+}
 /* endNavbar principale*/
 /* Navbar secondaire */
 .navbar2Infoox{
@@ -128,9 +134,47 @@ nav{
           text-decoration: none;
           color: $color-black;
           padding: 10px 40px;
+
         }
       }
     }
+  }
+  &.pc{
+    .containerInfoox {
+      overflow-x: hidden;
+      display: flex;
+      justify-content: space-between;
+      ul{
+        li{
+          a{
+            img{
+              width: 40px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.infooxNavbar2Contains{
+  @extend .navbar2Infoox;
+  position: absolute;
+  z-index: 1;
+  .containerInfoox{
+    ul{
+      li{
+        a{
+          padding: 0px;
+          margin: 0 15px;
+        }
+      }
+    }
+  }
+  .card{
+    background-color: $color-black-clair;
+  }
+  img{
+    height: 250px;
   }
 
 }
@@ -148,6 +192,12 @@ nav{
 /* endTablette */
 /* Desktops */
 @media screen and (min-width: 992px) {
+  .phone{
+    display: none;
+  }
+  .pc{
+    display: block;
+  }
   nav{
     .navPhone{
       display: none !important;
