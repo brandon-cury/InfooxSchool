@@ -1,5 +1,6 @@
-"use strict";
 
+/*
+"use strict";
 const app = Vue.createApp({
     data() {
         return {
@@ -14,5 +15,12 @@ const app = Vue.createApp({
 
     },
 });
-
 app.mount("#app"); // conteneur html avec id="app"
+*/
+//slider des astuces
+
+
+import $ from 'jquery';
+$(document).ready(function() {
+    //alert('jQuery est chargé et prêt à l\'emploi!');
+});

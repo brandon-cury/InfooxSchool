@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Infoox School{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}
 
 {% block body %}
     {% block sliderPrincipale %}
@@ -27,9 +32,8 @@
         </div>
 
     {% endblock %}
-        <h1>Bienvenue</h1>
-        <div {{ vue_component('Hello', {name:"dadad"}) }}></div>
+        <div {{ vue_component('examens') }}></div>
+
 {% endblock %}
-{% block js %}
-    <script src="js/home.js"></script>
-{% endblock %}
+
+

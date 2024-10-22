@@ -27,8 +27,10 @@ class ExamenFixture extends Fixture
         foreach ($examens as $examen_title) {
             $examen = new Examen();
             $examen->setTitle($examen_title)
-                    ->setImage($faker->imageUrl( 640, 480))
                     ->setSort($i);
+            if($examen_title == 'Licence'){
+                $examen->setImage('examens/licence.png');
+            }
             $manager->persist($examen);
             $i++;
         }

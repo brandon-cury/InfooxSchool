@@ -2,10 +2,16 @@ import { registerVueControllerComponents } from '@symfony/ux-vue';
 import './bootstrap.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap';
+//importation du slider slick
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+//require('jquery'); //importation de jquery car slick.js en a besoin v2.2.0
+import 'slick-carousel/slick/slick';
 
 //imoirtation des fichier js de composant a utiliser dans toute l'application
 import './js/navbar2';
 import './js/sliderPrincipale';
+
 
 /*
  * Welcome to your app's main JavaScript file!

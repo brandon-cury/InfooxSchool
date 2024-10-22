@@ -6,6 +6,7 @@ use App\Repository\ExamenRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ExamenRepository::class)]
 class Examen
@@ -13,15 +14,19 @@ class Examen
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("examen")] //j'ai ajouter ceci pour pouvoir selectionner id quand je veux optenir uniquement les propriété de la table examen
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups("examen")]
     private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups("examen")]
     private ?string $image = null;
 
     #[ORM\Column]
+    #[Groups("examen")]
     private ?int $sort = null;
 
     /**

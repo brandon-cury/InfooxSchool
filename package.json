@@ -28,5 +28,9 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "jquery": "^2.2.4",
+        "slick-carousel": "^1.8.1"
     }
 }
