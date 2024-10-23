@@ -1,3 +1,43 @@
-body{
-
+#home{
+  .filieres{
+    box-shadow: 0 20px 44px rgba(255, 255, 255, .25);
+    .navbar2Infoox{
+      position: relative;
+      width: 90%;
+      margin: 0 auto;
+      border-bottom: 2px solid black;
+      .containerInfoox{
+        margin: 0 auto;
+        overflow: hidden;
+        ul{
+          padding: 0;
+          margin: 0;
+          li{
+            a, &.nolienkInfoox{
+              margin: 0;
+              &.active{
+                background-color: $color-black;
+                color:$color-white;
+              }
+            }
+            a:hover{
+              background-color: $color-black-opacity;
+              color:$color-white;
+            }
+          }
+        }
+      }
+    }
+    .infooxFiliereContains{
+      position: relative;
+      width: 90%;
+      margin: 0 auto;
+      .col{
+        margin-top: 30px;
+      }
+    }
+    .infooxFiliereContains, .containerInfoox{
+      background-color: $color-white;
+    }
+  }
 }

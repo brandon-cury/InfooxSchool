@@ -8,7 +8,8 @@
 {% endblock %}
 
 {% block body %}
-    {% block sliderPrincipale %}
+    <main id="home">
+        {% block sliderPrincipale %}
         <div id="sliderPrincipaleInfooxJs" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active" data-bs-interval="5000">
@@ -33,7 +34,89 @@
 
     {% endblock %}
         <div {{ vue_component('examens') }}></div>
+        <!-- debut des filieres  -->
+        <div class="filieres ">
+            <div class="navbar2Infoox">
+                <div class="containerInfoox">
+                    <ul>
+                        <li class="nolienkInfoox">
+                            Filières :
+                        </li>
+                        <li>
+                            <a @click="getElement" class=" active" data-bs-toggle="collapse" href="#nouveaux" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Nouveaux
+                            </a>
+                        </li>
+                        <li>
+                            <a @click="getElement" class="" data-bs-toggle="collapse" href="#astucesScolaires" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Populaires
+                            </a>
+                        </li>
+                        <li>
+                            <a @click="getElement" class="" data-bs-toggle="collapse" href="#astucesScolaires" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Meilleures
+                            </a>
+                        </li>
 
+                    </ul>
+                </div>
+            </div>
+
+            <div class="collapse show infooxFiliereContains" id="nouveaux">
+                <div class="container">
+                    <div class="row">
+                        <div class="col col-4">
+                            <a href="#">
+                                <img src="{{ asset('/filieres/image.png') }}" style="width: 100%;" alt="default">
+                            </a>
+                        </div>
+                        <div class="col col-4">
+                            <a href="#">
+                                <img src="{{ asset('/filieres/image.png') }}" style="width: 100%;" alt="default">
+                            </a>
+                        </div>
+                        <div class="col col-4">
+                            <a href="#">
+                                <img src="{{ asset('/filieres/image.png') }}" style="width: 100%;" alt="default">
+                            </a>
+                        </div>
+                        <div class="col col-4">
+                            <a href="#">
+                                <img src="{{ asset('/filieres/image.png') }}" style="width: 100%;" alt="default">
+                            </a>
+                        </div>
+                        <div class="col col-4">
+                            <a href="#">
+                                <img src="{{ asset('/filieres/image.png') }}" style="width: 100%;" alt="default">
+                            </a>
+                        </div>
+                        <div class="col col-4">
+                            <a href="#">
+                                <img src="{{ asset('/filieres/image.png') }}" style="width: 100%;" alt="default">
+                            </a>
+                        </div>
+                        <div class="col col-4">
+                            <a href="#">
+                                <img src="{{ asset('/filieres/image.png') }}" style="width: 100%;" alt="default">
+                            </a>
+                        </div>
+                        <div class="col col-4">
+                            <a href="#">
+                                <img src="{{ asset('/filieres/image.png') }}" style="width: 100%;" alt="default">
+                            </a>
+                        </div>
+                        <div class="col col-4">
+                            <a href="#">
+                                <img src="{{ asset('/filieres/image.png') }}" style="width: 100%;" alt="default">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- fin des filieres  -->
+    </main>
 {% endblock %}
 
 
