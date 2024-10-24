@@ -12,6 +12,9 @@ import 'slick-carousel/slick/slick';
 import './js/navbar2';
 import './js/sliderPrincipale';
 
+//importation des scripts de pages
+import './js/page/home';
+
 
 /*
  * Welcome to your app's main JavaScript file!

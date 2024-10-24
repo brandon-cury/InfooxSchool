@@ -1,5 +1,4 @@
 
-/*
 "use strict";
 const app = Vue.createApp({
     data() {
@@ -12,11 +11,11 @@ const app = Vue.createApp({
     },
 
     mounted() {
-
+        //alert('bbbbbbb');
     },
 });
-app.mount("#app"); // conteneur html avec id="app"
-*/
+app.mount("#homePage"); // conteneur html avec id="app"
+
 //slider des astuces
 
 

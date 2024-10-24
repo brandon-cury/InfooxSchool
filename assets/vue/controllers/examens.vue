@@ -8,12 +8,11 @@
 </template>
 
 <script setup>
-import {computed, onMounted, ref, nextTick} from "vue";
+import {onMounted, ref} from "vue";
 
 import $ from 'jquery';
 import ExamenCard from "../components/examen-card.vue";
 
-const tab = ref(['jetaime', 'ddd', 'dxc']);
 const examens = ref([]);
 let isVisible = ref(false);
 onMounted(()=>{
@@ -53,9 +52,6 @@ onMounted(()=>{
     }
   });
 });
-
-
-
 
 </script>
 <style scoped>

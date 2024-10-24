@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: FiliereRepository::class)]
 class Filiere
@@ -14,6 +15,7 @@ class Filiere
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("filiere")] //j'ai ajouter ceci pour pouvoir selectionner id quand je veux optenir uniquement les propriété de la table filiere
     private ?int $id = null;
 
     /**
@@ -23,15 +25,19 @@ class Filiere
     private Collection $section;
 
     #[ORM\Column(length: 255)]
+    #[Groups("filiere")]
     private ?string $title = null;
 
     #[ORM\Column]
+    #[Groups("filiere")]
     private ?int $sort = null;
 
     #[ORM\Column(type: Types::BIGINT)]
+    #[Groups("filiere")]
     private ?string $all_user = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups("filiere")]
     private ?string $image = null;
 
     /**
@@ -51,6 +57,10 @@ class Filiere
      */
     #[ORM\ManyToMany(targetEntity: Epreuve::class, mappedBy: 'filiere')]
     private Collection $epreuves;
+
+    #[ORM\Column]
+    #[Groups("filiere")]
+    private ?\DateTimeImmutable $created_at = null;
 
     public function __construct()
     {
@@ -214,6 +224,18 @@ class Filiere
         if ($this->epreuves->removeElement($epreuve)) {
             $epreuve->removeFiliere($this);
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): static
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }

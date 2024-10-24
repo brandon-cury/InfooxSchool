@@ -59,6 +59,9 @@ h5 {
 h6 {
   font-size: calc(1.125rem + 1.5vw);
 }
+a{
+  text-decoration: none;
+}
 /* endSetting */
 /* Navbar principale*/
 nav{
@@ -180,6 +183,13 @@ nav{
 
 }
 /* endNavbar secondaire */
+/* sliderExamens */
+.slider {
+  width: 100%;
+  bottom: 50px;
+  overflow: hidden;
+}
+/* sliderExamens */
 /* Tablette */
 @media screen and (min-width: 768px) {
   /* Navbar */
@@ -208,12 +218,6 @@ nav{
     }
   }
   /* sliderExamens */
-
-  .slider {
-    width: 100%;
-    bottom: 50px;
-  }
-
   .slick-slide {
     margin: 0 20px;
   }
